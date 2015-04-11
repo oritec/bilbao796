@@ -34,12 +34,12 @@ def on_message(mosq, obj, msg):
 def connectall():
     print("DISPATCHER: Connecting")
     client.connect(args.server,1883, 60)
-    client.subscribe("lights/#", 0)
+    client.subscribe("/lights/#", 0)
     client.on_message = on_message
 
 def disconnectall():
     print("DISPATCHER: Disconnecting")
-    client.unsubscribe("lights/#")
+    client.unsubscribe("/lights/#")
     client.disconnect()
 
 def reconnect():
