@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import Queue
 import os
 import argparse
@@ -7,7 +8,7 @@ from xbee import XBee
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-p","--port", default="/dev/ttyUSB0", help="The port where the ZigBee is attached")
-parser.add_argument("-s","--server", default="127.0.0.1", help="The IP address of the MQTT server")
+parser.add_argument("-s","--server", default="localhost", help="The IP address of the MQTT server")
 parser.add_argument("-v", "--verbosity", type=int, choices=[0, 1, 2],  default=0,
                     help="increase output verbosity")
 args = parser.parse_args()
@@ -33,12 +34,12 @@ def on_message(mosq, obj, msg):
 def connectall():
     print("DISPATCHER: Connecting")
     client.connect(args.server,1883, 60)
-    client.subscribe("/lights/#", 0)
+    client.subscribe("lights/#", 0)
     client.on_message = on_message
 
 def disconnectall():
     print("DISPATCHER: Disconnecting")
-    client.unsubscribe("/lights/#")
+    client.unsubscribe("lights/#")
     client.disconnect()
 
 def reconnect():
