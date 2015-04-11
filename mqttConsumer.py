@@ -65,7 +65,7 @@ try:
                 msg= format(5, '02x')
             print sent
             print msg
-            xbee.remote_at(dest_addr='\x00\x02', command='D0',  parameter=msg)
+            xbee.remote_at(dest_addr='\x00\x02', command='D0',  parameter='\x04')
             # start=time.time()
             # #arduino.write(command+'|')
             # 
