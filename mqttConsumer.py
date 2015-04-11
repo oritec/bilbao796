@@ -27,6 +27,7 @@ def on_message(mosq, obj, msg):
 
     if(args.verbosity>1):
         print("DISPATCHER: Message received on topic "+msg.topic+" with payload "+msg.payload)
+        print msg.topic.split("/")[1]
 
     arduinoCommand=msg.payload
     commands.put(arduinoCommand)
