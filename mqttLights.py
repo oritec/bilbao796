@@ -17,7 +17,7 @@ serial_port = serial.Serial(args.port, 9600)
 xbee = XBee(serial_port)
 
 mypid = os.getpid()
-client = paho.Client()
+client = paho.Client("xbee_"+str(mypid))
 
 commands=Queue.Queue(0)
 
