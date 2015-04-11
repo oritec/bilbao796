@@ -30,7 +30,7 @@ def on_message(mosq, obj, msg):
         print("DISPATCHER: Message received on topic "+msg.topic+" with payload "+msg.payload)
         print msg.topic.split("/")[2]
 
-    arduinoCommand=msg.topic.split("/")[2]+":"+msg.payload
+    arduinoCommand=msg.topic.split("/")[2]+":"+msg.topic.split("/")[3]+":"+msg.payload
     commands.put(arduinoCommand)
 
 def connectall():
@@ -58,27 +58,15 @@ try:
             if(args.verbosity>0):
                 print("DISPATCHER: sending to Xbee: "+command)
             address=pack('>h',int(command.split(":")[0]))
-            sent=command.split(":")[1]
+            port='D'+command.split(":")[1]
+            sent=command.split(":")[2]
             if sent == '1':
                  msg= pack('>b',4)
             elif sent == '0':
                 msg= pack('>b',5)
-            print sent
-            print msg
-            xbee.remote_at(dest_addr=address, command='D0',  parameter=msg)
-            # start=time.time()
-            # #arduino.write(command+'|')
-            # 
-            # # wait until we get OK back
-            # response=''
-            # ack=False
-            # while not ack:
-            #     response=arduino.readline()
-            #     if (len(response)>0):
-            #         ack=True
-            # 
-            # end=time.time()
-            # print('Response {} to {} took {:G} millis'.format(response,command,(end-start)*1000))
+            
+            xbee.remote_at(dest_addr=address, command=port,  parameter=msg)
+            
 
 except KeyboardInterrupt:
     print "Interrupt received"
