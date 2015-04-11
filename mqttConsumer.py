@@ -29,7 +29,7 @@ def on_message(mosq, obj, msg):
         print("DISPATCHER: Message received on topic "+msg.topic+" with payload "+msg.payload)
         print msg.topic.split("/")[2]
 
-    arduinoCommand=msg.payload
+    arduinoCommand=msg.topic.split("/")[2]+":"+msg.payload
     commands.put(arduinoCommand)
 
 def connectall():
