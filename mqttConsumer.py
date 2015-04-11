@@ -9,7 +9,7 @@ from xbee import XBee
 parser = argparse.ArgumentParser()
 parser.add_argument("-p","--port", default="/dev/ttyUSB0", help="The port where the ZigBee is attached")
 parser.add_argument("-s","--server", default="localhost", help="The IP address of the MQTT server")
-parser.add_argument("-v", "--verbosity", type=int, choices=[0, 1, 2],  default=0,
+parser.add_argument("-v", "--verbosity", type=int, choices=[0, 1, 2],  default=2,
                     help="increase output verbosity")
 args = parser.parse_args()
 
