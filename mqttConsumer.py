@@ -57,8 +57,7 @@ try:
             command=commands.get()
             if(args.verbosity>0):
                 print("DISPATCHER: sending to Xbee: "+command)
-            address=command.split(":")[0]
-            print address
+            address=pack('>h',int(command.split(":")[0]))
             sent=command.split(":")[1]
             if sent == '1':
                  msg= pack('>b',4)
@@ -66,7 +65,7 @@ try:
                 msg= pack('>b',5)
             print sent
             print msg
-            xbee.remote_at(dest_addr='\x00\x02', command='D0',  parameter=msg)
+            xbee.remote_at(dest_addr=address, command='D0',  parameter=msg)
             # start=time.time()
             # #arduino.write(command+'|')
             # 

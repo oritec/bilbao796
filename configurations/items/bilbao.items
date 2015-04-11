@@ -1,5 +1,5 @@
 Group All
 
 /* Lights */
-
-Switch Light_FF_Entrada				"Entrada"		(Lights) {mqtt=">[mosquitto:/lights/1/command:command:ON:1],>[mosquitto:/lights/1/command:command:OFF:0],<[mosquitto:/lights/1/state:state:ON:1],<[mosquitto:/lights/1/state:state:OFF:0]"}
+/* El número de la cola, es la dirección Xbee */
+Switch Light_FF_Entrada				"Entrada"		(Lights) {mqtt=">[mosquitto:/lights/2/command:command:ON:1],>[mosquitto:/lights/2/command:command:OFF:0],<[mosquitto:/lights/2/state:state:ON:1],<[mosquitto:/lights/2/state:state:OFF:0]"}
