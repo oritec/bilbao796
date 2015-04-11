@@ -16,7 +16,7 @@ serial_port = serial.Serial(args.port, 9600)
 xbee = XBee(serial_port)
 
 mypid = os.getpid()
-client = paho.Client("consumerXbee_"+str(mypid))
+client = paho.Client()
 
 commands=Queue.Queue(0)
 
@@ -32,13 +32,12 @@ def on_message(mosq, obj, msg):
 
 def connectall():
     print("DISPATCHER: Connecting")
-    client.connect(args.server)
+    client.connect(args.server,1883, 60)
     client.subscribe("/lights/#", 0)
     client.on_message = on_message
 
 def disconnectall():
     print("DISPATCHER: Disconnecting")
-    arduino.close()
     client.unsubscribe("/lights/#")
     client.disconnect()
 
