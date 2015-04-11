@@ -5,6 +5,7 @@ import argparse
 import paho.mqtt.client as paho
 import serial
 from xbee import XBee
+from struct import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-p","--port", default="/dev/ttyUSB0", help="The port where the ZigBee is attached")
@@ -60,12 +61,12 @@ try:
             print address
             sent=command.split(":")[1]
             if sent == '1':
-                 msg= format(4, '02x')
+                 msg= pack('>b',4)
             elif sent == '0':
-                msg= format(5, '02x')
+                msg= pack('>b',5)
             print sent
             print msg
-            xbee.remote_at(dest_addr='\x00\x02', command='D0',  parameter='\x04')
+            xbee.remote_at(dest_addr='\x00\x02', command='D0',  parameter=msg)
             # start=time.time()
             # #arduino.write(command+'|')
             # 
