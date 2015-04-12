@@ -18,8 +18,14 @@ xbee = XBee(serial_port)
 
 mypid = os.getpid()
 client = paho.Client()
-
 commands=Queue.Queue(0)
+logger = logging.getLogger("DaemonLog")
+logger.setLevel(logging.DEBUG)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+handler = logging.FileHandler("/var/log/mqttconsumer/mqttconsumer.log")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
 
 def on_message(mosq, obj, msg):
     #called when we get an MQTT message that we subscribe to
@@ -34,6 +40,7 @@ def on_message(mosq, obj, msg):
 
 def connectall():
     print("DISPATCHER: Connecting")
+    logger.debug("DISPATCHER: Connecting")
     client.connect("localhost",1883, 60)
     client.subscribe("/lights/#", 0)
     client.on_message = on_message
@@ -83,12 +90,8 @@ class App():
                 disconnectall()
                 
 app = App()
-logger = logging.getLogger("DaemonLog")
-logger.setLevel(logging.DEBUG)
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-handler = logging.FileHandler("/var/log/mqttconsumer/mqttconsumer.log")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+
+
 
 daemon_runner = runner.DaemonRunner(app)
 #This ensures that the logger file handle does not get closed during daemonization
