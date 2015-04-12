@@ -60,7 +60,6 @@ class App():
         
     
     def run(self):
-        
         while True:
             try:
                 while client.loop()==0:
@@ -85,7 +84,7 @@ class App():
                 
 app = App()
 logger = logging.getLogger("DaemonLog")
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler = logging.FileHandler("/var/log/mqttconsumer/mqttconsumer.log")
 handler.setFormatter(formatter)
