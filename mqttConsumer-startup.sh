@@ -21,7 +21,7 @@ case "$1" in
     /usr/bin/python /home/pi/bilbao796/trunk/mqttConsumer.py >/tmp/script_stdout.txt 2>&1 &
     ;;
   stop)
-    echo "Stopping noip"
+    echo "Stopping mqttConsumer"
     # kill application you want to stop
     pkill -f mqttConsumer.py
     ;;
