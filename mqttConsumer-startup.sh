@@ -18,12 +18,12 @@ case "$1" in
   start)
     echo "Starting mqttConsumer"
     # run application you want to start
-    /usr/bin/python /home/pi/bilbao796/trunk/mqttConsumer.py &
+    /usr/bin/python /home/pi/bilbao796/trunk/mqttConsumer.py >/tmp/script_stdout.txt 2>&1 &
     ;;
   stop)
     echo "Stopping noip"
     # kill application you want to stop
-    killall noip2
+    pkill -f mqttConsumer.py
     ;;
   *)
     echo "Usage: /etc/init.d/mqttConsumer {start|stop}"
