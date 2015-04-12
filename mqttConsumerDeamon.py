@@ -30,7 +30,7 @@ class App():
         self.stdin_path = '/dev/null'
         self.stdout_path = '/dev/tty'
         self.stderr_path = '/dev/tty'
-        self.pidfile_path =  '/var/run/mqttconsumer/mqttconsumer.pid'
+        self.pidfile_path =  '/var/run/mqttconsumer.pid'
         self.pidfile_timeout = 5
         
     
