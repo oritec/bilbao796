@@ -32,14 +32,13 @@ def on_message(mosq, obj, msg):
     #Puts the command in the queue
 
     #if(args.verbosity>1):
-    #    print("DISPATCHER: Message received on topic "+msg.topic+" with payload "+msg.payload)
+    logger.debug("DISPATCHER: Message received on topic "+msg.topic+" with payload "+msg.payload)
     #    print msg.topic.split("/")[2]
 
     arduinoCommand=msg.topic.split("/")[2]+":"+msg.topic.split("/")[3]+":"+msg.payload
     commands.put(arduinoCommand)
 
 def connectall():
-    print("DISPATCHER: Connecting")
     logger.debug("DISPATCHER: Connecting")
     client.connect("localhost",1883, 60)
     client.subscribe("/lights/#", 0)
@@ -54,7 +53,7 @@ def reconnect():
     disconnectall()
     connectall()
 
-connectall()
+
         
 class App():
 
@@ -64,7 +63,7 @@ class App():
         self.stderr_path = '/dev/tty'
         self.pidfile_path =  '/var/run/mqttconsumer.pid'
         self.pidfile_timeout = 5
-        
+        connectall()
     
     def run(self):
         while True:
