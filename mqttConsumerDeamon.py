@@ -46,6 +46,8 @@ def disconnectall():
 def reconnect():
     disconnectall()
     connectall()
+
+connectall()
         
 class App():
 
@@ -58,7 +60,7 @@ class App():
         
     
     def run(self):
-        connectall()
+        
         while True:
             try:
                 while client.loop()==0:
