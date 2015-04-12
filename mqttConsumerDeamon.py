@@ -6,14 +6,16 @@ import time
 #third party libs
 from daemon import runner
 
+import Queue
+import os
+import paho.mqtt.client as paho
+import serial
+from xbee import XBee
+from struct import *
+    
 class App():
 
-    import Queue
-    import os
-    import paho.mqtt.client as paho
-    import serial
-    from xbee import XBee
-    from struct import *
+    
 
     
     serial_port = serial.Serial("/dev/ttyUSB0", 9600)
