@@ -12,29 +12,16 @@ import paho.mqtt.client as paho
 import serial
 from xbee import XBee
 from struct import *
-    
-class App():
 
-    
+serial_port = serial.Serial("/dev/ttyUSB0", 9600)
+xbee = XBee(serial_port)
 
-    
-    serial_port = serial.Serial("/dev/ttyUSB0", 9600)
-    xbee = XBee(serial_port)
-    
-    mypid = os.getpid()
-    client = paho.Client()
-    
-    commands=Queue.Queue(0)
-    
-    def __init__(self):
-        self.stdin_path = '/dev/null'
-        self.stdout_path = '/dev/tty'
-        self.stderr_path = '/dev/tty'
-        self.pidfile_path =  '/var/run/mqttconsumer.pid'
-        self.pidfile_timeout = 5
-        
-    
-    def on_message(mosq, obj, msg):
+mypid = os.getpid()
+client = paho.Client()
+
+commands=Queue.Queue(0)
+
+def on_message(mosq, obj, msg):
         #called when we get an MQTT message that we subscribe to
         #Puts the command in the queue
     
@@ -59,6 +46,18 @@ class App():
     def reconnect():
         disconnectall()
         connectall()
+        
+class App():
+    
+    
+    
+    def __init__(self):
+        self.stdin_path = '/dev/null'
+        self.stdout_path = '/dev/tty'
+        self.stderr_path = '/dev/tty'
+        self.pidfile_path =  '/var/run/mqttconsumer.pid'
+        self.pidfile_timeout = 5
+        
     
     def run(self):
         connectall()
