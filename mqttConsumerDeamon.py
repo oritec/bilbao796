@@ -22,35 +22,33 @@ client = paho.Client()
 commands=Queue.Queue(0)
 
 def on_message(mosq, obj, msg):
-        #called when we get an MQTT message that we subscribe to
-        #Puts the command in the queue
-    
-        #if(args.verbosity>1):
-        #    print("DISPATCHER: Message received on topic "+msg.topic+" with payload "+msg.payload)
-        #    print msg.topic.split("/")[2]
-    
-        arduinoCommand=msg.topic.split("/")[2]+":"+msg.topic.split("/")[3]+":"+msg.payload
-        commands.put(arduinoCommand)
-    
-    def connectall():
-        print("DISPATCHER: Connecting")
-        client.connect("localhost",1883, 60)
-        client.subscribe("/lights/#", 0)
-        client.on_message = on_message
-    
-    def disconnectall():
-        print("DISPATCHER: Disconnecting")
-        client.unsubscribe("/lights/#")
-        client.disconnect()
-    
-    def reconnect():
-        disconnectall()
-        connectall()
+    #called when we get an MQTT message that we subscribe to
+    #Puts the command in the queue
+
+    #if(args.verbosity>1):
+    #    print("DISPATCHER: Message received on topic "+msg.topic+" with payload "+msg.payload)
+    #    print msg.topic.split("/")[2]
+
+    arduinoCommand=msg.topic.split("/")[2]+":"+msg.topic.split("/")[3]+":"+msg.payload
+    commands.put(arduinoCommand)
+
+def connectall():
+    print("DISPATCHER: Connecting")
+    client.connect("localhost",1883, 60)
+    client.subscribe("/lights/#", 0)
+    client.on_message = on_message
+
+def disconnectall():
+    print("DISPATCHER: Disconnecting")
+    client.unsubscribe("/lights/#")
+    client.disconnect()
+
+def reconnect():
+    disconnectall()
+    connectall()
         
 class App():
-    
-    
-    
+
     def __init__(self):
         self.stdin_path = '/dev/null'
         self.stdout_path = '/dev/tty'
