@@ -30,7 +30,7 @@ class App():
         self.stderr_path = '/dev/tty'
         self.pidfile_path =  '/var/run/mqttconsumer/mqttconsumer.pid'
         self.pidfile_timeout = 5
-        connectall()
+        
     
     def on_message(mosq, obj, msg):
         #called when we get an MQTT message that we subscribe to
@@ -59,6 +59,7 @@ class App():
         connectall()
     
     def run(self):
+        connectall()
         while True:
             try:
                 while client.loop()==0:
