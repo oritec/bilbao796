@@ -4,4 +4,15 @@ sitemap demo label="Mi Casa"
 		Switch item=Light_FF_Entrada label="Luz Entrada" 
 	}
 	
+	Frame label="Multimedia" {
+		Text label="Multimedia" icon="video" {
+
+			Frame label="Multimedia Widgets" {
+				Video item=VideoPTZ1 url="http://admin:123456@192.168.0.29:1025/videostream.cgi?rate=0" encoding="mjpeg"
+				Webview item=VideoWeb url="http://admin:123456@192.168.0.29:1025/mobile.html" height=270
+			}
+		}
+		
+	}
+	
 }
